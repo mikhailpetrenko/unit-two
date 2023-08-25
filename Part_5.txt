@@ -1,0 +1,65 @@
+
+CREATE TABLE customers (
+    customer_id INTEGER PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(20)
+);
+INSERT INTO customers (first_name, last_name, email, phone)
+VALUES
+    ( 'Misha', 'Pe', 'yohoho@gmail.com', '123-456-7890'),
+    ('John', 'Smith', 'whatsupther@gmail.com', '122-543-2342');
+
+CREATE TABLE products (
+    product_id INTEGER PRIMARY KEY,
+    brand VARCHAR(255),
+    model VARCHAR(255),
+    description TEXT,
+    price DECIMAL(10, 2),
+    quantity INTEGER
+);
+
+INSERT INTO products (product_id, brand, model, description, price, quantity)
+VALUES
+    (1, 'Aist', 'Model 2', 'High-performance bicycle', 999.99, 10),
+    (2, 'Tair', 'Model 1', 'Comfortable city bike', 599.99, 20);
+
+SELECT * FROM products;
+
+
+
+CREATE TABLE transactions (
+    transaction_id INTEGER PRIMARY KEY,
+    customer_id INTEGER REFERENCES customers(customer_id),
+    product_id INTEGER REFERENCES products(product_id),
+    transaction_date DATE
+);
+
+INSERT INTO transactions (transaction_id, customer_id, product_id, transaction_date)
+VALUES
+    (1, 1, 1, '2023-08-21'),
+    (2, 2, 1, '2023-08-22'),
+    (3, 1, 2, '2023-08-23');
+
+SELECT * FROM transactions;
+
+SELECT * FROM customers
+ORDER BY last_name ASC
+LIMIT 1;
+
+SELECT * FROM products
+WHERE quantity >= 15;
+
+INSERT INTO customers (customer_id, first_name, last_name, email, phone)
+VALUES (3, 'Jane', 'Doe', 'jane@gmail.com', '555-123-4567');
+
+DELETE FROM transactions
+WHERE product_id = 2;
+
+DELETE FROM products
+WHERE product_id = 2;
+
+UPDATE customers
+SET phone = '555-987-6543'
+WHERE customer_id = 1;
